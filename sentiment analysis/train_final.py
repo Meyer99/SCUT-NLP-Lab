@@ -3,7 +3,7 @@ import pickle
 import argparse
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import f1_score, classification_report
 
 from utils import *
 
@@ -32,7 +32,9 @@ def main():
     result = model.predict(X_train)
 
     if args.print:
-        print(accuracy_score(y, result))
+        print('micro avg:', f1_score(y, result, average='micro'))
+        print('macro avg:', f1_score(y, result, average='macro'))
+        print('weighted avg:', f1_score(y, result, average='weighted'))
         print(classification_report(y, result))
 
     if args.save:
